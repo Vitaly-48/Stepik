@@ -1,26 +1,16 @@
-from math import sqrt
+from math import acos, degrees, hypot, sqrt
 
+area = lambda a,b,c,hp: sqrt(hp * (hp-a) * (hp-b) * (hp-c))
+angl = lambda a,b,c: degrees(acos((a*a + b*b - c*c) / (2*a*b)))
 
-x_a, y_a, x_b, y_b, x_c, y_c = float(input()), float(input()), float(input()), float(input()), float(input()), float(input())
+ax, ay, bx = float(input('x_a = ')), float(input('y_a = ')), float(input('x_b = '))
+by, cx, cy = float(input('y_b = ')), float(input('x_c = ')), float(input('y_c = '))
+a, b, c    = hypot(cx-bx, cy-by),    hypot(cx-ax, cy-ay),    hypot(bx-ax, by-ay)
+p          = a+b+c
 
-
-def compute_len(x_0, y_0, x_1, y_1):
-    return sqrt((x_1 - x_0) ** 2 + (y_1 - y_0) ** 2)
-
-
-a = compute_len(x_a, y_a, x_b, y_b)
-b = compute_len(x_b, y_b, x_c, y_c)
-c = compute_len(x_a, y_a, x_c, y_c)
-
-if a + b <= c or b + c <= a or a + c <= b:
-    print("error")
-
+if (p-a <= a or p-b <= b or p-c <= c): print('Треугольник не существует')
 else:
-    p = a + b + c
-    s = sqrt(p / 2 * (p / 2 - a) * (p / 2 - b) * (p / 2 - c))
-    r = sqrt(((p / 2 - a) * (p / 2 - b) * (p / 2 - c)) / (p / 2))
-    R = (a * b * c) / (4 * s)
-    Ma = sqrt(2 * (c ** 2 + b ** 2) - a ** 2) / 2
-    Mb = sqrt(2 * (a ** 2 + c ** 2) - b ** 2) / 2
-    Mc = sqrt(2 * (a ** 2 + b ** 2) - c ** 2) / 2
-    print(round(r, 4), round(R, 4), round(Ma + Mb + Mc, 4))
+    print("Стороны: ", round(a,3), round(b,3), round(c,3))
+    print("Площадь: ", round(area(a,b,c,p/2),3))
+    print("Периметр: ", round(p,3))
+    print("Углы: ", round(angl(c,b,a),3), round(angl(c,a,b),3), round(angl(a,b,c),3))
