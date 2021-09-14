@@ -12,6 +12,41 @@
 #  1118 -  0.195 миллиард(ов)
 
 
+import math
+
+def compute_population(t):
+# вычислить численность населения для года t по формуле
+    c = 172
+    t1 = 2000
+    tay = 45
+    n = c / tay * (math.pi / 2 - math.atan((t1 - t) / tay))
+    return n
+
+#ввести строку с перечисленными через пробел годами
+line = input()
+
+# преобразовать строку в список из строковых значений годов
+years_str_list = line.split()
+
+# вычислить количество элементов в списке
+n = len(years_str_list)
+
+# сформировать список years_list на основе years_str_list,
+#преобразовав строковые значения в целые
+years_list = [int(a) for a in years_str_list]
+
+# создать список population_list, каждый элемент которого вычисляется
+# функцией compute_population от соответсвующего года из списка years_list
+population_list = [compute_population(b) for b in years_list]
+
+# в цикле для каждого года вывести численность населения, для вывода использовать
+# формат "%5d - %6.3f миллиард(ов)"
+for c in range(n):
+    print("%5d - %6.3f миллиард(ов)" % (years_list[c], population_list[c]))
+
+print('-----------------------------------------------------------------------------')
+
+
 from math import atan
 from math import pi
 
